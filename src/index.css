@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode: toggled by ThemeContext via <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Brand accent — signal teal */
+  --color-signal-50: #eefdfb;
+  --color-signal-100: #d1faf3;
+  --color-signal-200: #a6f2e6;
+  --color-signal-300: #6de4d5;
+  --color-signal-400: #34cebc;
+  --color-signal-500: #1cb3a3;
+  --color-signal-600: #158f84;
+  --color-signal-700: #14726b;
+  --color-signal-800: #145b57;
+  --color-signal-900: #134b48;
+
+  /* Secondary brand accent — used sparingly for premium/AI cues */
+  --color-amber-signal-300: #f6cd7e;
+  --color-amber-signal-400: #f2b84b;
+  --color-amber-signal-500: #e0a22f;
+  --color-amber-signal-600: #b98322;
+
+  /* Ink surfaces (dark theme base) */
+  --color-ink-950: #05090f;
+  --color-ink-900: #0a1017;
+  --color-ink-850: #0d1520;
+  --color-ink-800: #121b29;
+  --color-ink-700: #182333;
+  --color-ink-600: #1e2a3d;
+  --color-ink-500: #2c3a51;
+  --color-ink-400: #4a5c78;
+  --color-ink-300: #8b99ac;
+  --color-ink-200: #c1cbd8;
+  --color-ink-100: #e6ebf2;
+  --color-ink-50: #f4f7fa;
+
+  --shadow-glow-signal: 0 0 0 1px rgba(28, 179, 163, 0.25), 0 8px 30px -8px rgba(28, 179, 163, 0.35);
+  --shadow-glow-amber: 0 0 0 1px rgba(242, 184, 75, 0.25), 0 8px 30px -8px rgba(242, 184, 75, 0.35);
+  /* Thin scroll-progress bar glow — brighter/tighter than the ambient card glow above */
+  --shadow-glow-bar: 0 0 10px 1px rgba(52, 206, 188, 0.65), 0 0 2px 0 rgba(52, 206, 188, 0.9);
+}
+
+:root {
+  /* Combined ribbon + navbar height. Kept in sync at runtime by HeaderShell
+     via ResizeObserver so <main> padding never fights the fixed header. */
+  --header-h: 4rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-white text-ink-900 antialiased;
+    font-family: var(--font-sans);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  html.dark body {
+    @apply bg-ink-950 text-ink-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: var(--color-signal-400);
+    color: var(--color-ink-950);
+  }
+
+  /* Visible keyboard focus everywhere — accessibility floor */
+  :focus-visible {
+    outline: 2px solid var(--color-signal-400);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-500);
+    border-radius: 999px;
+  }
+  html.dark ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-600);
+  }
+}
+
+@layer components {
+  /* Fine blueprint grid used behind hero / signature sections */
+  .bp-grid {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-ink-400) 10%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-ink-400) 10%, transparent) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Signature corner-bracket frame — the "precision scanner" motif */
+  .corner-frame {
+    position: relative;
+  }
+  .corner-frame::before,
+  .corner-frame::after,
+  .corner-frame > .corner-tl,
+  .corner-frame > .corner-br {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-color: var(--color-signal-400);
+    pointer-events: none;
+  }
+  .corner-frame::before {
+    top: -10px;
+    left: -10px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    border-radius: 6px 0 0 0;
+  }
+  .corner-frame::after {
+    bottom: -10px;
+    right: -10px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    border-radius: 0 0 6px 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
