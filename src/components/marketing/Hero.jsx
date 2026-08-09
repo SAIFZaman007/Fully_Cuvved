@@ -41,7 +41,7 @@ export default function Hero() {
         <div className="max-w-2xl">
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <Badge tone="signal" icon={Sparkles} className="border-signal-400/30 bg-signal-500/15 text-signal-300">
-              Instant UK Temporary Car Insurance · Issued in Seconds
+              Instant UK Temporary Documents · Issued in Seconds
             </Badge>
           </motion.div>
 
@@ -51,7 +51,7 @@ export default function Hero() {
             transition={{ duration: 0.55, delay: 0.05 }}
             className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.4rem]"
           >
-            Temporary Car Insurance,{' '}
+            Temporary Documents,{' '}
             <span className="text-signal-300">Generated in Seconds</span>
           </motion.h1>
 

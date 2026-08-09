@@ -4,7 +4,7 @@ import { Zap, ShieldCheck, MapPin, X } from 'lucide-react';
 const ITEMS = [
   { icon: Zap, label: 'Documents generated in ~12 seconds' },
   { icon: ShieldCheck, label: '256-bit encrypted, UK GDPR compliant' },
-  { icon: MapPin, label: 'Instant Temporary Car Insurance, issued nationwide' },
+  { icon: MapPin, label: 'Instant Temporary Documents, issued nationwide' },
 ];
 
 export default function Ribbon({ visible, onDismiss }) {
